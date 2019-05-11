@@ -44,8 +44,8 @@ class LineController extends Controller
     protected $bot;
 
     public function __construct() {
-        $httpClient = new CurlHTTPClient(LINE_ACCESS_TOKEN);
-        $this->bot = new LINEBot($httpClient, ['channelSecret' => LINE_CHANNEL_SECRET]);
+        $httpClient = new CurlHTTPClient(env('LINE_ACCESS_TOKEN'));
+        $this->bot = new LINEBot($httpClient, ['channelSecret' => env('LINE_CHANNEL_SECRET')]);
     }
 
     /**
