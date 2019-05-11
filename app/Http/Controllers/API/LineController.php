@@ -14,7 +14,7 @@ class LineController extends Controller
      */
     public function index()
     {
-        return response(['message'=>'ok','status'=>true],200);
+        return response(['message'=>'ok','status'=>200],200);
     }
 
     /**
