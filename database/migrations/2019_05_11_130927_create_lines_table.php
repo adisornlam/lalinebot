@@ -15,6 +15,8 @@ class CreateLinesTable extends Migration
     {
         Schema::create('lines', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('line_id', 64)->unique();
+            $table->string('display_name', 64);
             $table->timestamps();
         });
     }
