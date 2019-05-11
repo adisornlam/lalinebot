@@ -123,5 +123,60 @@ class LineController extends Controller
     {
         //
     }
+
+    public function buttonMessagePush(Request $request) {
+        // return $this->sendResponse('Succeeded', 'Line push successfully.');
+        $templateBuilder = new ButtonTemplateBuilder(
+            'Menu',
+            'Please select',
+            'https://firstblood.io/pages/wp-content/uploads/2018/07/dota-2-hero-guide-970x570.jpg',
+            [
+                new MessageTemplateActionBuilder('Buy', 'action=buy&itemid=123'),
+                new PostbackTemplateActionBuilder('Buy', 'action=buy&itemid=123'),
+                new UriTemplateActionBuilder('Buy', 'http://example.com/page/123')
+            ]
+        );
+        return $this->push($request->to, new TemplateMessageBuilder('This is a buttons template', $templateBuilder));
+    }
+
+
+    public function carouselColumnMessagePush(Request $request) {
+        $templateBuilder = new CarouselTemplateBuilder([
+            new CarouselColumnTemplateBuilder(
+                'this is menu',
+                'description',
+                'https://firstblood.io/pages/wp-content/uploads/2018/07/dota-2-hero-guide-970x570.jpg',
+                [
+                    new PostbackTemplateActionBuilder('Buy', 'action=buy&itemid=111'),
+                    new PostbackTemplateActionBuilder('Add to cart', 'action=add&itemid=111'),
+                    new UriTemplateActionBuilder('View detail', 'http://example.com/page/111')
+                ]
+            ),
+            new CarouselColumnTemplateBuilder(
+                'this is menu',
+                'description',
+                'https://firstblood.io/pages/wp-content/uploads/2018/07/feature-970x570.jpg',
+                [
+                    new PostbackTemplateActionBuilder('Buy', 'action=buy&itemid=111'),
+                    new PostbackTemplateActionBuilder('Add to cart', 'action=add&itemid=111'),
+                    new UriTemplateActionBuilder('View detail', 'http://example.com/page/111')
+                ]
+            )
+        ]);
+
+        return $this->push($request->to, new TemplateMessageBuilder('this is a carousel template', $templateBuilder));
+    }
+
+    protected function push($to, $messageBuilder) {
+        $response = $this->bot->pushMessage($to, $messageBuilder);
+        if ($response->isSucceeded()) {
+            return $this->sendResponse('Succeeded', 'Line push successfully.');
+        }
+
+        // Failed
+        return $this->sendResponse(json_decode($response->getRawBody()), 'Line push error.');
+    }
+
+
     
 }
