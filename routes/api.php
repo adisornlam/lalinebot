@@ -18,4 +18,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 // Route::get('/webhook', 'API\LineController@index');
-Route::post('webhook', 'API\LineController@bot');
+// Route::post('webhook', 'API\LineController@bot');
+
+Route::resource('webhook', 'API\LineController');
