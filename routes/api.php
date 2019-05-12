@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,4 +21,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 // Route::get('webhook', 'API\LineController@index');
 // Route::post('webhook', 'API\LineController@bot');
 
-Route::resource('webhook', 'API\LineController');
+// Route::resource('webhook', 'API\LineController');
+
+Route::get('webhook', function (Request $request) {
+    return response()->json($request, 200);
+});

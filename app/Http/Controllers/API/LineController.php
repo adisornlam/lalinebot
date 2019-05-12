@@ -53,9 +53,10 @@ class LineController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return response()->json(Line::all(), 200);
+
+        return response()->json($request, 200);
     }
 
     /**
